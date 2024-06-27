@@ -12,10 +12,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.nyfaria.nyfsmultiloader.ExampleMod"
+      "com.nyfaria.perfectplushieapi.ExampleMod"
     ],
     "client": [
-      "com.nyfaria.nyfsmultiloader.ExampleModClient"
+      "com.nyfaria.perfectplushieapi.ExampleModClient"
     ]
   },
   "mixins": [
