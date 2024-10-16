@@ -26,7 +26,7 @@ public class PlayerPlushieModel extends GeoModel<PlayerPlushieBlockEntity> {
 
     @Override
     public ResourceLocation getTextureResource(PlayerPlushieBlockEntity animatable) {
-        return textures.computeIfAbsent(BuiltInRegistries.BLOCK.getKey(animatable.getBlockState().getBlock()), blockRL -> new ResourceLocation(Constants.MODID, "textures/block/" + blockRL.getPath() + ".png"));
+        return textures.computeIfAbsent(BuiltInRegistries.BLOCK.getKey(animatable.getBlockState().getBlock()), blockRL -> new ResourceLocation(blockRL.getNamespace(), "textures/block/" + blockRL.getPath() + ".png"));
     }
 
     @Override

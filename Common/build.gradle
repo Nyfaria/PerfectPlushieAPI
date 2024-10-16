@@ -3,6 +3,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'maven-publish'
+    id 'dev._100media.gradleutils' version '1.+'
 }
 
 archivesBaseName = "${mod_id}-common-${minecraft_version}"
@@ -29,8 +30,8 @@ minecraft {
 dependencies {
     minecraft "net.minecraft:joined:${minecraft_version}"
     compileOnly group:'org.spongepowered', name:'mixin', version:'0.8.5'
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    implementation("com.github.llamalad7.mixinextras:mixinextras-forge:0.2.0-rc.3")
+    compileOnly group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+    compileOnly("com.github.llamalad7.mixinextras:mixinextras-forge:0.2.0-rc.3")
     annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-forge:0.2.0-rc.3")
     compileOnly "software.bernie.geckolib:geckolib-forge-1.20.1:${geckolib_version}"
 }
@@ -56,8 +57,6 @@ publishing {
     }
 
     repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
-        }
+        maven hundredMedia.getPublishing100MediaMaven()
     }
 }

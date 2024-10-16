@@ -39,4 +39,9 @@ public class ForgePlatformHelper implements IPlatformHelper {
     public void registerFabricRenderer(Consumer<Object> consumer) {
 
     }
+
+    @Override
+    public void registerFabricColorRenderer(Consumer<Object> consumer) {
+
+    }
 }

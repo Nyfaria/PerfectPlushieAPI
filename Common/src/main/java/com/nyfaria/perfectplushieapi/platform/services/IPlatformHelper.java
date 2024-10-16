@@ -41,5 +41,5 @@ public interface IPlatformHelper {
     Supplier<Object> getRenderProvider(GeoItem item);
 
     void registerFabricRenderer(Consumer<Object> consumer);
-
+    void registerFabricColorRenderer(Consumer<Object> consumer);
 }

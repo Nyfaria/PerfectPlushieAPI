@@ -3,6 +3,7 @@ plugins {
     id 'maven-publish'
     id 'idea'
     id "me.modmuss50.mod-publish-plugin" version "0.3.3"
+    id 'dev._100media.gradleutils' version '1.+'
 }
 
 archivesBaseName = "${mod_id}-fabric-${minecraft_version}"
@@ -24,7 +25,7 @@ dependencies {
 loom {
 
     if (project.hasProperty('fabric_aws_enabled') && project.findProperty('fabric_aws_enabled').toBoolean()) {
-        accessWidenerPath = project(":Common").file("src/main/resources/${mod_id}.accesswidener")
+        accessWidenerPath = project(":Common").file("src/main/resources/accesstransformers.accesswidener")
     }
     runs {
         client {
@@ -100,9 +101,7 @@ publishing {
     }
 
     repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
-        }
+        maven hundredMedia.getPublishing100MediaMaven()
     }
 }
 publishMods {

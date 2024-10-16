@@ -1,0 +1,13 @@
+{
+  "type": "perfectplushieapi:add_plushie",
+  "chance": 0.5,
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/underwater_ruin_small"
+    }
+  ],
+  "plushies": [
+    "#perfectplushieapi:treasure_plushies"
+  ]
+}

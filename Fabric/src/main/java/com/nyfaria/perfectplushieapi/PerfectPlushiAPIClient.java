@@ -2,7 +2,7 @@ package com.nyfaria.perfectplushieapi;
 
 import net.fabricmc.api.ClientModInitializer;
 
-public class ExampleModClient implements ClientModInitializer {
+public class PerfectPlushiAPIClient implements ClientModInitializer {
     
     @Override
     public void onInitializeClient() {

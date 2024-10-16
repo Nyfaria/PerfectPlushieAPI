@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.nyfaria.perfectplushieapi.platform.Services;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -28,6 +29,7 @@ public class PlayerGeoPlushieBlockItem extends GeoPlushieBlockItem {
 
     public PlayerGeoPlushieBlockItem(Block block) {
         this(block, Rarity.COMMON);
+        RenderType.glint();
     }
 
 
@@ -42,7 +44,6 @@ public class PlayerGeoPlushieBlockItem extends GeoPlushieBlockItem {
             tooltip.add(Component.translatable("tooltip.perfectplushies.advanced", Component.translatable("tooltip.perfectplushies.shift").withStyle(ChatFormatting.YELLOW)));
         }
     }
-
 
     public Supplier<Object> getRenderProvider() {
         return Services.PLATFORM.getRenderProvider(this);

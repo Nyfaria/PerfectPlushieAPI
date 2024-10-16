@@ -15,14 +15,19 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public abstract class DualColoredPlushieBlockEntity extends BlockEntity implements GeoBlockEntity {
+import java.util.ArrayList;
+import java.util.List;
 
-    private Vec3i color1;
-    private Vec3i color2;
+public abstract class ColoredPlushieBlockEntity extends BlockEntity implements GeoBlockEntity {
+
+    private List<Vec3i> colors = new ArrayList<>();
     private AnimatableInstanceCache animatableManager = GeckoLibUtil.createInstanceCache(this);
 
-    public DualColoredPlushieBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public ColoredPlushieBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
+    }
+    public int colorCount() {
+        return colors.size();
     }
 
     @Override
@@ -31,35 +36,24 @@ public abstract class DualColoredPlushieBlockEntity extends BlockEntity implemen
         super.load(tag);
     }
 
-    private void loadData(CompoundTag tag) {
-        int[] color1A = tag.getIntArray("color1");
-        int[] color2A = tag.getIntArray("color2");
-        color1 = new Vec3i(color1A[0], color1A[1], color1A[2]);
-        color2 = new Vec3i(color2A[0], color2A[1], color2A[2]);
+    public List<Vec3i> getColors() {
+        return colors;
     }
 
-    public int getRed1() {
-        return color1.getX();
+    public void setColors(List<Vec3i> colors) {
+        this.colors = colors;
     }
 
-    public int getGreen1() {
-        return color1.getY();
+    public int getRed(int index) {
+        return colors.get(index).getX();
     }
 
-    public int getBlue1() {
-        return color1.getZ();
+    public int getGreen(int index) {
+        return colors.get(index).getY();
     }
 
-    public int getRed2() {
-        return color2.getX();
-    }
-
-    public int getGreen2() {
-        return color2.getY();
-    }
-
-    public int getBlue2() {
-        return color2.getZ();
+    public int getBlue(int index) {
+        return colors.get(index).getZ();
     }
 
     @Override
@@ -69,8 +63,24 @@ public abstract class DualColoredPlushieBlockEntity extends BlockEntity implemen
     }
 
     private void saveData(CompoundTag pTag) {
-        pTag.putIntArray("color1", new int[]{color1.getX(), color1.getY(), color1.getZ()});
-        pTag.putIntArray("color2", new int[]{color2.getX(), color2.getY(), color2.getZ()});
+        CompoundTag colorsTag = new CompoundTag();
+        for(int i = 0; i < colors.size(); i++) {
+            Vec3i color = colors.get(i);
+            CompoundTag colorTag = new CompoundTag();
+            colorTag.putInt("red", color.getX());
+            colorTag.putInt("green", color.getY());
+            colorTag.putInt("blue", color.getZ());
+            colorsTag.put(String.valueOf(i), colorTag);
+        }
+        pTag.put("colors", colorsTag);
+    }
+    private void loadData(CompoundTag tag) {
+        CompoundTag colorsTag = tag.getCompound("colors");
+        for(String key : colorsTag.getAllKeys()) {
+            CompoundTag colorTag = colorsTag.getCompound(key);
+            Vec3i color = new Vec3i(colorTag.getInt("red"), colorTag.getInt("green"), colorTag.getInt("blue"));
+            colors.add(color);
+        }
     }
 
     @Override
@@ -102,11 +112,15 @@ public abstract class DualColoredPlushieBlockEntity extends BlockEntity implemen
         return animatableManager;
     }
 
-    public void setColor1(Vec3i color1) {
-        this.color1 = color1;
+    public void setColor(int index, Vec3i color) {
+        if(colors.size() > index) {
+            colors.set(index, color);
+        } else {
+            colors.add(color);
+        }
     }
 
-    public void setColor2(Vec3i color2) {
-        this.color2 = color2;
+    public void addColor(Vec3i color) {
+        colors.add(color);
     }
 }

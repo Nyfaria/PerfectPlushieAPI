@@ -1,0 +1,18 @@
+{
+  "type": "perfectplushieapi:add_arch_plushie",
+  "chance": 0.5,
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:archaeology/trail_ruins_rare"
+    }
+  ],
+  "plushies": [
+    "#perfectplushieapi:archaeology_plushies",
+    "#perfectplushieapi:rare_archaeology_plushies"
+  ],
+  "weights": [
+    1,
+    2
+  ]
+}

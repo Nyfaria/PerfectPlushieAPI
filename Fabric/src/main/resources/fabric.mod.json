@@ -12,10 +12,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.nyfaria.perfectplushieapi.ExampleMod"
+      "com.nyfaria.perfectplushieapi.PerfectPlushieAPI"
     ],
     "client": [
-      "com.nyfaria.perfectplushieapi.ExampleModClient"
+      "com.nyfaria.perfectplushieapi.PerfectPlushiAPIClient"
     ]
   },
   "mixins": [

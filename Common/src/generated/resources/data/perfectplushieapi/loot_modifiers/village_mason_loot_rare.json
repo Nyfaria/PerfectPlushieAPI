@@ -1,0 +1,13 @@
+{
+  "type": "perfectplushieapi:add_plushie",
+  "chance": 0.25,
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/village/village_mason"
+    }
+  ],
+  "plushies": [
+    "#perfectplushieapi:rare_village_plushies"
+  ]
+}
