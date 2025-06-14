@@ -129,6 +129,7 @@ processResources {
 }
 
 
+reg.configureJarTask(tasks.jarJar)
 jar.finalizedBy('reobfJar')
 publishing {
     publications {

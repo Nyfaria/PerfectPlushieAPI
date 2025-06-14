@@ -23,6 +23,8 @@ public class PlushieTags {
     public static final TagKey<Block> VILLAGE_PLUSHIES_BLOCKS = TagKey.create(Registries.BLOCK, new ResourceLocation(Constants.MODID, "village_plushies"));
     public static final TagKey<Block> TREASURE_PLUSHIES_BLOCKS = TagKey.create(Registries.BLOCK, new ResourceLocation(Constants.MODID, "treasure_plushies"));
 
+    public static final TagKey<Block> ACTIVE_PLAYER_PLUSHIES = TagKey.create(Registries.BLOCK, new ResourceLocation(Constants.MODID, "trader_player_plushies"));
+
     public static void loadClass() {
     }
 }

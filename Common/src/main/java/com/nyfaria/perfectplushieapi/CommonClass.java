@@ -1,5 +1,8 @@
 package com.nyfaria.perfectplushieapi;
 
+import com.nyfaria.perfectplushieapi.init.PlushieBlockInit;
+import com.nyfaria.perfectplushieapi.init.PlushieEntityInit;
+import com.nyfaria.perfectplushieapi.init.PlushieItemInit;
 import com.nyfaria.perfectplushieapi.init.PlushieTags;
 
 // This class is part of the common project meaning it is shared between
@@ -7,6 +10,8 @@ public class CommonClass {
 
     public static void init() {
         PlushieTags.loadClass();
+        PlushieItemInit.loadClass();
+        PlushieEntityInit.loadClass();
     }
 
     public static int tryParseInt(String value, int defaultVal) {

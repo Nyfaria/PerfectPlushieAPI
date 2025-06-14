@@ -20,6 +20,8 @@ dependencies {
     compileOnly project(":Common")
     include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.0-rc.3")))
     modImplementation "software.bernie.geckolib:geckolib-fabric-1.20.1:${geckolib_version}"
+    modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
+    include "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
 }
 
 loom {

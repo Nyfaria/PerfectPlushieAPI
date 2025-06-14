@@ -1,5 +1,6 @@
 package com.nyfaria.perfectplushieapi;
 
+import com.nyfaria.perfectplushieapi.config.PlushieConfig;
 import com.nyfaria.perfectplushieapi.init.PlushieTags;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.resources.ResourceLocation;
@@ -11,6 +12,7 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntry;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.Arrays;
@@ -61,7 +63,7 @@ public class PlushiesLootTableModifier {
                 LOOT_TABLE_RESOURCE_LOCATION = new ResourceLocation("minecraft", "chests/village/" + village);
                 if (LOOT_TABLE_RESOURCE_LOCATION.equals(id)) {
                     LootPool.Builder poolBuilder = LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1))
+                            .setRolls(BinomialDistributionGenerator.binomial(1, ((PlushieConfig)PlushieConfig.INSTANCE).village_loot_table_chance.get().floatValue()))
                             .add(TagEntry.expandTag(PlushieTags.VILLAGE_PLUSHIES_ITEMS).when(LootItemRandomChanceCondition.randomChance(0.5f)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f))))
                             .add(TagEntry.expandTag(PlushieTags.RARE_VILLAGE_PLUSHIES_ITEMS).when(LootItemRandomChanceCondition.randomChance(0.25f)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f))))
                             .add(TagEntry.expandTag(PlushieTags.EPIC_VILLAGE_PLUSHIES_ITEMS).when(LootItemRandomChanceCondition.randomChance(0.1f)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f))));
@@ -74,7 +76,7 @@ public class PlushiesLootTableModifier {
                 LOOT_TABLE_RESOURCE_LOCATION = new ResourceLocation("minecraft", "chests/" + buried_treasure);
                 if (LOOT_TABLE_RESOURCE_LOCATION.equals(id)) {
                     LootPool.Builder poolBuilder = LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1))
+                            .setRolls(BinomialDistributionGenerator.binomial(1, ((PlushieConfig)PlushieConfig.INSTANCE).buried_treasure_loot_table_chance.get().floatValue()))
                             .add(TagEntry.expandTag(PlushieTags.TREASURE_PLUSHIES_ITEMS).when(LootItemRandomChanceCondition.randomChance(0.5f)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f))))
                             .add(TagEntry.expandTag(PlushieTags.RARE_TREASURE_PLUSHIES_ITEMS).when(LootItemRandomChanceCondition.randomChance(0.25f)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f))))
                             .add(TagEntry.expandTag(PlushieTags.EPIC_TREASURE_PLUSHIES_ITEMS).when(LootItemRandomChanceCondition.randomChance(0.1f)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f))));
@@ -86,7 +88,7 @@ public class PlushiesLootTableModifier {
                 LOOT_TABLE_RESOURCE_LOCATION = new ResourceLocation("minecraft", buried_treasure);
                 if (LOOT_TABLE_RESOURCE_LOCATION.equals(id)) {
                     LootPool.Builder poolBuilder = LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1))
+                            .setRolls(BinomialDistributionGenerator.binomial(1, ((PlushieConfig)PlushieConfig.INSTANCE).archaeology_loot_table_chance.get().floatValue()))
                             .add(TagEntry.expandTag(PlushieTags.ARCHAEOLOGY_PLUSHIES_ITEMS).setWeight(4).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f))))
                             .add(TagEntry.expandTag(PlushieTags.RARE_ARCHAEOLOGY_PLUSHIES_ITEMS).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f))));
                     tableBuilder.pool(poolBuilder.build());
