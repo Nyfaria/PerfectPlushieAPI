@@ -17,6 +17,7 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class PlayerGeoPlushieBlockItem extends GeoPlushieBlockItem {
@@ -45,9 +46,9 @@ public class PlayerGeoPlushieBlockItem extends GeoPlushieBlockItem {
         }
     }
 
-    public Supplier<Object> getRenderProvider() {
-        return Services.PLATFORM.getRenderProvider(this);
-    }
 
+    public void createRenderer(Consumer<Object> consumer) {
+        Services.PLATFORM.registerFabricRenderer(consumer);
+    }
 
 }

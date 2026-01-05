@@ -46,5 +46,6 @@ public interface IPlatformHelper {
 
     void registerFabricRenderer(Consumer<Object> consumer);
     void registerFabricColorRenderer(Consumer<Object> consumer);
+    void registerFabricGeoRenderer(Consumer<Object> consumer);
     <T extends Mob> SpawnEggItem createSpawnEggItem(RegistryObject<EntityType<T>> entityTypeRegistryObject, int primaryColor, int secondaryColor);
 }

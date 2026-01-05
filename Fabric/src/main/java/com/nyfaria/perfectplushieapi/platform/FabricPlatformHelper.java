@@ -2,6 +2,7 @@ package com.nyfaria.perfectplushieapi.platform;
 
 import com.nyfaria.perfectplushieapi.client.renderer.ColoredPlushieBlockItemRenderer;
 import com.nyfaria.perfectplushieapi.client.renderer.PlayerPlushieBlockItemRenderer;
+import com.nyfaria.perfectplushieapi.client.renderer.PlushieBlockItemRenderer;
 import com.nyfaria.perfectplushieapi.platform.services.IPlatformHelper;
 import com.nyfaria.perfectplushieapi.registration.RegistryObject;
 import net.fabricmc.loader.api.FabricLoader;
@@ -67,6 +68,20 @@ public class FabricPlatformHelper implements IPlatformHelper {
         });
     }
 
+    @Override
+    public void registerFabricGeoRenderer(Consumer<Object> consumer) {
+        consumer.accept(new RenderProvider() {
+            private PlushieBlockItemRenderer<?> renderer;
+
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                if (this.renderer == null)
+                    this.renderer = new PlushieBlockItemRenderer<>();
+
+                return this.renderer;
+            }
+        });
+    }
 
     @Override
     public <T extends Mob>  SpawnEggItem createSpawnEggItem(RegistryObject<EntityType<T>> entityTypeRegistryObject, int primaryColor, int secondaryColor) {

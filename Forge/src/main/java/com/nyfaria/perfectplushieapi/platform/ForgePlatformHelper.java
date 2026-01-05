@@ -51,6 +51,11 @@ public class ForgePlatformHelper implements IPlatformHelper {
     }
 
     @Override
+    public void registerFabricGeoRenderer(Consumer<Object> consumer) {
+
+    }
+
+    @Override
     public <T extends Mob> SpawnEggItem createSpawnEggItem(RegistryObject<EntityType<T>> entityTypeRegistryObject, int primaryColor, int secondaryColor) {
         return new ForgeSpawnEggItem(entityTypeRegistryObject, primaryColor,secondaryColor, new SpawnEggItem.Properties());
     }

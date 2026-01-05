@@ -11,7 +11,8 @@
   ],
   "client": [
     "ColorPlushieBlockItemMixin",
-    "PlayerPlushieBlockItemMixin"
+    "PlayerPlushieBlockItemMixin",
+    "GenericGeoPlushieBlockItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

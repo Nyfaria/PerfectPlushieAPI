@@ -46,7 +46,8 @@ public class ColoredPlushieBlockItem extends GeoPlushieBlockItem {
         }
     }
 
-    @Override
+
+
     public void createRenderer(Consumer<Object> consumer) {
         Services.PLATFORM.registerFabricColorRenderer(consumer);
     }

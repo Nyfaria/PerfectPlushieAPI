@@ -4,6 +4,8 @@ import com.mojang.serialization.Codec;
 import com.nyfaria.perfectplushieapi.Constants;
 import com.nyfaria.perfectplushieapi.loot.ArchaeologyLootModifier;
 import com.nyfaria.perfectplushieapi.loot.VillageLootModifier;
+import net.minecraft.core.registries.*;
+import net.minecraft.world.level.levelgen.presets.*;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.DeferredRegister;
@@ -19,4 +21,6 @@ public class LootModifierInit {
     private static <T extends LootModifier> RegistryObject<Codec<T>> registerSerializer(String id, Codec<T> serializer) {
         return LOOT_MODIFIERS.register(id, () -> serializer);
     }
+    public static DeferredRegister<WorldPreset> WORLD_PRESETS = DeferredRegister.create(Registries.WORLD_PRESET, Constants.MODID);
+
 }
