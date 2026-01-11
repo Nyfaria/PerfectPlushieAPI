@@ -21,7 +21,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.*;
 
 public class PlushieBlock extends HorizontalDirectionalBlock implements Equipable {
     private static final VoxelShape OUTLINE_SHAPE = Block.box(3, 0, 3, 13, 10, 13);

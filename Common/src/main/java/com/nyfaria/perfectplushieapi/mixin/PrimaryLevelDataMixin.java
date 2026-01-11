@@ -4,7 +4,7 @@ import com.nyfaria.perfectplushieapi.api.PlushieTraderLevelData;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.storage.PrimaryLevelData;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;

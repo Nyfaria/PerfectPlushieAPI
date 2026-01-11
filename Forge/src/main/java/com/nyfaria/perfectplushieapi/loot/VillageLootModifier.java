@@ -13,7 +13,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.NotNull;
+import org.checkerframework.checker.nullness.qual.*;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class VillageLootModifier extends LootModifier {
     }
 
     @Override
-    protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+    protected @NonNull ObjectArrayList<ItemStack> doApply(@NonNull ObjectArrayList<ItemStack> generatedLoot, @NonNull LootContext context) {
         if (context.getRandom().nextFloat() < chance) {
             TagEntry tagthing = plushies.get(context.getRandom().nextInt(plushies.size()));
             Item item;
