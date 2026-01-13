@@ -1,7 +1,6 @@
 plugins {
     id 'multiloader-loader'
     id 'fabric-loom'
-    id 'maven-publish'
     id "me.modmuss50.mod-publish-plugin" version "0.3.3"
     id 'dev._100media.gradleutils'
 }
@@ -16,7 +15,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    compileOnly project(":Common")
+    implementation project(":Common")
     include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.5.2")))
     modImplementation "software.bernie.geckolib:geckolib-fabric-1.20.1:${geckolib_version}"
     modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
@@ -48,7 +47,7 @@ loom {
         defaultRefmapName = "${mod_id}.refmap.json"
     }
 }
-
+reg.configureJarTask(remapJar)
 publishMods {
     if(publishFabric) {
         file = remapJar.archiveFile
