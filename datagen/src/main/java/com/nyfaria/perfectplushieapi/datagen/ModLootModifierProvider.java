@@ -4,16 +4,18 @@ import com.nyfaria.perfectplushieapi.Constants;
 import com.nyfaria.perfectplushieapi.init.PlushieTags;
 import com.nyfaria.perfectplushieapi.loot.ArchaeologyLootModifier;
 import com.nyfaria.perfectplushieapi.loot.VillageLootModifier;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.TagEntry;
-import net.minecraftforge.common.data.GlobalLootModifierProvider;
-import net.minecraftforge.common.loot.LootTableIdCondition;
+import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
+import net.neoforged.neoforge.common.loot.LootTableIdCondition;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class ModLootModifierProvider extends GlobalLootModifierProvider {
-    public ModLootModifierProvider(PackOutput output) {
-        super(output, Constants.MODID);
+    public ModLootModifierProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider, Constants.MODID);
     }
 
     @Override

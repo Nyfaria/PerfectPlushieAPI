@@ -1,8 +1,10 @@
 package com.nyfaria.perfectplushieapi.loot;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagEntry;
 import net.minecraft.tags.TagKey;
@@ -10,16 +12,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.common.loot.IGlobalLootModifier;
-import net.minecraftforge.common.loot.LootModifier;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
+import net.neoforged.neoforge.common.loot.LootModifier;
 
 import javax.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArchaeologyLootModifier extends LootModifier {
-    public static final Codec<ArchaeologyLootModifier> CODEC = RecordCodecBuilder.create(builder -> codecStart(builder)
+    public static final MapCodec<ArchaeologyLootModifier> CODEC = RecordCodecBuilder.mapCodec(builder -> codecStart(builder)
             .and(TagEntry.CODEC.listOf().fieldOf("plushies").forGetter(ArchaeologyLootModifier::plushies))
             .and(Codec.INT.listOf().fieldOf("weights").forGetter(ArchaeologyLootModifier::weights))
             .and(Codec.FLOAT.fieldOf("chance").forGetter(ArchaeologyLootModifier::chance))
@@ -47,13 +48,13 @@ public class ArchaeologyLootModifier extends LootModifier {
                 int weight = weights.get(i);
                 if (tagEntry.isTag()) {
                     TagKey<Item> itemTag = TagKey.create(Registries.ITEM, tagEntry.getId());
-                    ForgeRegistries.ITEMS.tags().getTag(itemTag).stream().toList().forEach(item -> {
+                    BuiltInRegistries.ITEM.getTag(itemTag).ifPresent(tag -> tag.stream().map(net.minecraft.core.Holder::value).forEach(item -> {
                         for (int j = 0; j < weight; j++) {
                             plushieList.add(item);
                         }
-                    });
+                    }));
                 } else {
-                    plushieList.add(ForgeRegistries.ITEMS.getValue(tagEntry.getId()));
+                    plushieList.add(BuiltInRegistries.ITEM.get(tagEntry.getId()));
                 }
             }
         }
@@ -73,7 +74,7 @@ public class ArchaeologyLootModifier extends LootModifier {
     }
 
     @Override
-    public Codec<? extends IGlobalLootModifier> codec() {
+    public MapCodec<? extends IGlobalLootModifier> codec() {
         return CODEC;
     }
 }

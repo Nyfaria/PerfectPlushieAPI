@@ -1,26 +1,22 @@
 package com.nyfaria.perfectplushieapi.init;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.nyfaria.perfectplushieapi.Constants;
 import com.nyfaria.perfectplushieapi.loot.ArchaeologyLootModifier;
 import com.nyfaria.perfectplushieapi.loot.VillageLootModifier;
-import net.minecraft.core.registries.*;
-import net.minecraft.world.level.levelgen.presets.*;
-import net.minecraftforge.common.loot.IGlobalLootModifier;
-import net.minecraftforge.common.loot.LootModifier;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
+import net.neoforged.neoforge.common.loot.LootModifier;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 public class LootModifierInit {
-    public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Constants.MODID);
+    public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Constants.MODID);
 
-    public static final RegistryObject<Codec<VillageLootModifier>> VILLAGE_LOOT_MODIFIER = registerSerializer("add_plushie", VillageLootModifier.CODEC);
-    public static final RegistryObject<Codec<ArchaeologyLootModifier>> ARCHAEOLOGY_LOOT_MODIFIER = registerSerializer("add_arch_plushie", ArchaeologyLootModifier.CODEC);
+    public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<VillageLootModifier>> VILLAGE_LOOT_MODIFIER = registerSerializer("add_plushie", VillageLootModifier.CODEC);
+    public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<ArchaeologyLootModifier>> ARCHAEOLOGY_LOOT_MODIFIER = registerSerializer("add_arch_plushie", ArchaeologyLootModifier.CODEC);
 
-    private static <T extends LootModifier> RegistryObject<Codec<T>> registerSerializer(String id, Codec<T> serializer) {
+    private static <T extends LootModifier> DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<T>> registerSerializer(String id, MapCodec<T> serializer) {
         return LOOT_MODIFIERS.register(id, () -> serializer);
     }
-    public static DeferredRegister<WorldPreset> WORLD_PRESETS = DeferredRegister.create(Registries.WORLD_PRESET, Constants.MODID);
-
 }
