@@ -1,0 +1,59 @@
+plugins {
+    id 'multiloader-loader'
+    alias(nyfs.plugins.mdg.loader)
+    alias(nyfs.plugins.regutils.loader)
+    id 'multiloader-moddev'
+    id("com.nyfaria.moddingtools.dependencies")
+    id("com.nyfaria.moddingtools.publishing")
+    id 'dev._100media.gradleutils' version '1.+'
+    id 'maven-publish'
+}
+
+dependencies {
+    compileOnly group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+    modDeps.requiredMod(nyfs.geckolib.neoforge, "geckolib", null)
+}
+
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            groupId = project.group
+            artifactId = "${mod_id}-neoforge"
+            version = "${project.version}+${minecraft_version}"
+
+            afterEvaluate {
+                artifact tasks.named("jar")
+            }
+
+            pom {
+                name = "${mod_name} (NeoForge)"
+                description = project.description ?: 'API for Adding more Perfect Plushies'
+                url = 'https://github.com/Nyfaria/PerfectPlushieAPI'
+
+                licenses {
+                    license {
+                        name = 'All Rights Reserved'
+                        url = 'https://github.com/Nyfaria/PerfectPlushieAPI'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'nyfaria'
+                        name = 'Nyfaria'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:git://github.com/Nyfaria/PerfectPlushieAPI.git'
+                    developerConnection = 'scm:git:ssh://github.com/Nyfaria/PerfectPlushieAPI.git'
+                    url = 'https://github.com/Nyfaria/PerfectPlushieAPI'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven(hundredMedia.getPublishing100MediaMaven())
+    }
+}
