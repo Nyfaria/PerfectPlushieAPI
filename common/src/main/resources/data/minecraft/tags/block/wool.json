@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#perfectplushieapi:village_plushies",
+      "required": false
+    },
+    {
+      "id": "#perfectplushieapi:treasure_plushies",
+      "required": false
+    }
+  ]
+}

@@ -1,7 +1,6 @@
 plugins {
     id 'multiloader-loader'
     alias(nyfs.plugins.loom.loader)
-    alias(nyfs.plugins.regutils.loader)
     id("com.nyfaria.moddingtools.dependencies")
     id("com.nyfaria.moddingtools.publishing")
     id 'multiloader-fabric'
@@ -13,6 +12,11 @@ dependencies {
     compileOnly group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     modDeps.requiredMod(nyfs.geckolib.fabric, "geckolib", null)
     modDeps.requiredMod(nyfs.config.api.fabric, "forgeconfigapiport", null)
+}
+
+afterEvaluate {
+    def seen = [] as Set
+    configurations.sourcesElements.outgoing.artifacts.removeIf { !seen.add(it.file) }
 }
 
 publishing {

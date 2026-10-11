@@ -4,10 +4,6 @@ import com.nyfaria.perfectplushieapi.registration.RegistryObject;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.SpawnEggItem;
-import software.bernie.geckolib.animatable.GeoItem;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public interface IPlatformHelper {
 
@@ -42,10 +38,6 @@ public interface IPlatformHelper {
 
         return isDevelopmentEnvironment() ? "development" : "production";
     }
-    Supplier<Object> getRenderProvider(GeoItem item);
 
-    void registerFabricRenderer(Consumer<Object> consumer);
-    void registerFabricColorRenderer(Consumer<Object> consumer);
-    void registerFabricGeoRenderer(Consumer<Object> consumer);
     <T extends Mob> SpawnEggItem createSpawnEggItem(RegistryObject<EntityType<?>, EntityType<T>> entityTypeRegistryObject, int primaryColor, int secondaryColor);
 }

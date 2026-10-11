@@ -1,21 +1,11 @@
 package com.nyfaria.perfectplushieapi.platform;
 
-import com.nyfaria.perfectplushieapi.client.renderer.ColoredPlushieBlockItemRenderer;
-import com.nyfaria.perfectplushieapi.client.renderer.PlayerPlushieBlockItemRenderer;
-import com.nyfaria.perfectplushieapi.client.renderer.PlushieBlockItemRenderer;
 import com.nyfaria.perfectplushieapi.platform.services.IPlatformHelper;
 import com.nyfaria.perfectplushieapi.registration.RegistryObject;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
-import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.animatable.client.GeoRenderProvider;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class FabricPlatformHelper implements IPlatformHelper {
 
@@ -36,55 +26,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
         return FabricLoader.getInstance().isDevelopmentEnvironment();
     }
 
-    @Override
-    public Supplier<Object> getRenderProvider(GeoItem item) {
-        return () -> GeoRenderProvider.of((Item) item);
-    }
-    @Override
-    public void registerFabricRenderer(Consumer<Object> consumer) {
-        consumer.accept(new GeoRenderProvider() {
-            private PlayerPlushieBlockItemRenderer renderer;
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
-                if (this.renderer == null)
-                    this.renderer = new PlayerPlushieBlockItemRenderer();
-
-                return this.renderer;
-            }
-        });
-    }
-    @Override
-    public void registerFabricColorRenderer(Consumer<Object> consumer) {
-        consumer.accept(new GeoRenderProvider() {
-            private ColoredPlushieBlockItemRenderer renderer;
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
-                if (this.renderer == null)
-                    this.renderer = new ColoredPlushieBlockItemRenderer();
-
-                return this.renderer;
-            }
-        });
-    }
-
-    @Override
-    public void registerFabricGeoRenderer(Consumer<Object> consumer) {
-        consumer.accept(new GeoRenderProvider() {
-            private PlushieBlockItemRenderer<?> renderer;
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
-                if (this.renderer == null)
-                    this.renderer = new PlushieBlockItemRenderer<>();
-
-                return this.renderer;
-            }
-        });
-    }
-
-    @Override
+@Override
     public <T extends Mob>  SpawnEggItem createSpawnEggItem(RegistryObject<EntityType<?>, EntityType<T>> entityTypeRegistryObject, int primaryColor, int secondaryColor) {
         return new SpawnEggItem(entityTypeRegistryObject.get(), primaryColor, secondaryColor, new SpawnEggItem.Properties());
     }

@@ -7,10 +7,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
-import software.bernie.geckolib.animatable.GeoItem;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class NeoForgePlatformHelper implements IPlatformHelper {
 
@@ -32,27 +28,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
         return !FMLLoader.isProduction();
     }
 
-    @Override
-    public Supplier<Object> getRenderProvider(GeoItem item) {
-        return null;
-    }
-
-    @Override
-    public void registerFabricRenderer(Consumer<Object> consumer) {
-
-    }
-
-    @Override
-    public void registerFabricColorRenderer(Consumer<Object> consumer) {
-
-    }
-
-    @Override
-    public void registerFabricGeoRenderer(Consumer<Object> consumer) {
-
-    }
-
-    @Override
+@Override
     public <T extends Mob> SpawnEggItem createSpawnEggItem(RegistryObject<EntityType<?>, EntityType<T>> entityTypeRegistryObject, int primaryColor, int secondaryColor) {
         return new SpawnEggItem(entityTypeRegistryObject.get(), primaryColor, secondaryColor, new SpawnEggItem.Properties());
     }

@@ -1,9 +1,10 @@
 package com.nyfaria.perfectplushieapi.item;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.nyfaria.perfectplushieapi.platform.Services;
+import com.nyfaria.perfectplushieapi.client.renderer.ColoredPlushieBlockItemRenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -12,29 +13,27 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Block;
-import javax.annotation.*;
 import org.lwjgl.glfw.GLFW;
+import software.bernie.geckolib.animatable.client.GeoRenderProvider;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import javax.annotation.*;
 
 public class ColoredPlushieBlockItem extends GeoPlushieBlockItem {
 
-
-    public ColoredPlushieBlockItem(Block block, Rarity isRare) {
+public ColoredPlushieBlockItem(Block block, Rarity isRare) {
         super(block, new Properties().rarity(isRare));
     }
 
-
-    public ColoredPlushieBlockItem(Block block) {
+public ColoredPlushieBlockItem(Block block) {
         this(block, Rarity.COMMON);
         RenderType.glint();
     }
 
-
-    @Override
+@Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltip, flag);
         if (flag.isAdvanced() || InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT)) {
@@ -46,9 +45,17 @@ public class ColoredPlushieBlockItem extends GeoPlushieBlockItem {
         }
     }
 
+@Override
+    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+        consumer.accept(new GeoRenderProvider() {
+            private ColoredPlushieBlockItemRenderer<?> renderer;
 
-
-    public void createRenderer(Consumer<Object> consumer) {
-        Services.PLATFORM.registerFabricColorRenderer(consumer);
+            @Override
+            public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
+                if (this.renderer == null)
+                    this.renderer = new ColoredPlushieBlockItemRenderer<>();
+                return this.renderer;
+            }
+        });
     }
 }

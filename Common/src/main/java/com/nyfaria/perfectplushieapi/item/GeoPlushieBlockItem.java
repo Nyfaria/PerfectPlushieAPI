@@ -1,15 +1,11 @@
 package com.nyfaria.perfectplushieapi.item;
 
-import com.nyfaria.perfectplushieapi.platform.Services;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.instance.*;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public abstract class GeoPlushieBlockItem extends BlockItem implements GeoItem {
 
@@ -27,10 +23,5 @@ public abstract class GeoPlushieBlockItem extends BlockItem implements GeoItem {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return animatableInstanceCache;
-    }
-
-
-    public Supplier<Object> getRenderProvider() {
-        return Services.PLATFORM.getRenderProvider(this);
     }
 }
