@@ -43,18 +43,18 @@ public class ModLangProvider extends LanguageProvider {
         add("tooltip.perfectplushies.shift", "SHIFT");
     }
 
-    protected void itemLang(RegistryObject<Item> entry) {
+    protected void itemLang(RegistryObject<Item, ? extends Item> entry) {
         if (!(entry.get() instanceof BlockItem) || entry.get() instanceof ItemNameBlockItem) {
             addItem(entry, checkReplace(entry));
         }
     }
 
 
-    protected void entityLang(RegistryObject<EntityType<?>> entry) {
+    protected void entityLang(RegistryObject<EntityType<?>, ? extends EntityType<?>> entry) {
         addEntityType(entry, checkReplace(entry));
     }
 
-    protected String checkReplace(RegistryObject<?> registryObject) {
+    protected String checkReplace(RegistryObject<?, ?> registryObject) {
         return Arrays.stream(registryObject.getId().getPath().split("_"))
                 .map(this::checkReplace)
                 .filter(s -> !s.isBlank())

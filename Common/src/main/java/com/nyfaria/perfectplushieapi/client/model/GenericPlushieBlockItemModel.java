@@ -18,12 +18,12 @@ public class GenericPlushieBlockItemModel<T extends GeoPlushieBlockItem> extends
 
     @Override
     public ResourceLocation getModelResource(T animatable) {
-        return geoCache.computeIfAbsent(getRegistryName(animatable), k -> new ResourceLocation(k.getNamespace(), "geo/block/" + k.getPath() + ".geo.json"));
+        return geoCache.computeIfAbsent(getRegistryName(animatable), k -> ResourceLocation.fromNamespaceAndPath(k.getNamespace(), "geo/block/" + k.getPath() + ".geo.json"));
     }
 
     @Override
     public ResourceLocation getTextureResource(T animatable) {
-        return textureCache.computeIfAbsent(getRegistryName(animatable.getBlock()), k -> new ResourceLocation(k.getNamespace(), "textures/block/" + k.getPath() + ".png"));
+        return textureCache.computeIfAbsent(getRegistryName(animatable.getBlock()), k -> ResourceLocation.fromNamespaceAndPath(k.getNamespace(), "textures/block/" + k.getPath() + ".png"));
     }
 
     @Override

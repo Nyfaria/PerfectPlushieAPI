@@ -9,9 +9,10 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.animatable.client.RenderProvider;
+import software.bernie.geckolib.animatable.client.GeoRenderProvider;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -26,7 +27,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
     @Override
     public boolean isModLoaded(String modId) {
 
-        return FabricLoader.getInstance().getAllMods().forEach(m->m.getMetadata()).isModLoaded(modId);
+        return FabricLoader.getInstance().isModLoaded(modId);
     }
 
     @Override
@@ -37,15 +38,15 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public Supplier<Object> getRenderProvider(GeoItem item) {
-        return GeoItem.makeRenderer(item);
+        return () -> GeoRenderProvider.of((Item) item);
     }
     @Override
     public void registerFabricRenderer(Consumer<Object> consumer) {
-        consumer.accept(new RenderProvider() {
+        consumer.accept(new GeoRenderProvider() {
             private PlayerPlushieBlockItemRenderer renderer;
 
             @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+            public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
                 if (this.renderer == null)
                     this.renderer = new PlayerPlushieBlockItemRenderer();
 
@@ -55,11 +56,11 @@ public class FabricPlatformHelper implements IPlatformHelper {
     }
     @Override
     public void registerFabricColorRenderer(Consumer<Object> consumer) {
-        consumer.accept(new RenderProvider() {
+        consumer.accept(new GeoRenderProvider() {
             private ColoredPlushieBlockItemRenderer renderer;
 
             @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+            public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
                 if (this.renderer == null)
                     this.renderer = new ColoredPlushieBlockItemRenderer();
 
@@ -70,11 +71,11 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public void registerFabricGeoRenderer(Consumer<Object> consumer) {
-        consumer.accept(new RenderProvider() {
+        consumer.accept(new GeoRenderProvider() {
             private PlushieBlockItemRenderer<?> renderer;
 
             @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+            public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
                 if (this.renderer == null)
                     this.renderer = new PlushieBlockItemRenderer<>();
 
@@ -84,7 +85,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public <T extends Mob>  SpawnEggItem createSpawnEggItem(RegistryObject<EntityType<T>> entityTypeRegistryObject, int primaryColor, int secondaryColor) {
+    public <T extends Mob>  SpawnEggItem createSpawnEggItem(RegistryObject<EntityType<?>, EntityType<T>> entityTypeRegistryObject, int primaryColor, int secondaryColor) {
         return new SpawnEggItem(entityTypeRegistryObject.get(), primaryColor, secondaryColor, new SpawnEggItem.Properties());
     }
 }

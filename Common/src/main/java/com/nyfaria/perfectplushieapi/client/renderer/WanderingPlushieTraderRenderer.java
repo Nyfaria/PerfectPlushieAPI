@@ -5,21 +5,21 @@ import com.nyfaria.perfectplushieapi.entity.WanderingPlushieTrader;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.cache.object.*;
 import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
-import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class WanderingPlushieTraderRenderer extends GeoEntityRenderer<WanderingPlushieTrader> {
     public WanderingPlushieTraderRenderer(EntityRendererProvider.Context renderManager) {
-        super(renderManager, new DefaultedEntityGeoModel<>(new ResourceLocation(Constants.MODID, "wandering_plushie_trader"), true) {
+        super(renderManager, new DefaultedEntityGeoModel<>(ResourceLocation.fromNamespaceAndPath(Constants.MODID, "wandering_plushie_trader"), true) {
             @Override
             public void setCustomAnimations(WanderingPlushieTrader animatable, long instanceId, AnimationState<WanderingPlushieTrader> animationState) {
-                CoreGeoBone head = getAnimationProcessor().getBone("head");
-                CoreGeoBone rightLeg = getAnimationProcessor().getBone("right_leg");
-                CoreGeoBone leftLeg = getAnimationProcessor().getBone("left_leg");
+                GeoBone head = getAnimationProcessor().getBone("head");
+                GeoBone rightLeg = getAnimationProcessor().getBone("right_leg");
+                GeoBone leftLeg = getAnimationProcessor().getBone("left_leg");
                 EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
                 float pLimbSwing = animationState.getLimbSwing();
                 float pLimbSwingAmount = animationState.getLimbSwingAmount();

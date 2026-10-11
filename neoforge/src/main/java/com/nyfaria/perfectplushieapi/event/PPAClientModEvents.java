@@ -4,14 +4,13 @@ import com.nyfaria.perfectplushieapi.client.renderer.GeoPlushieRenderer;
 import com.nyfaria.perfectplushieapi.client.renderer.PlushieRenderer;
 import com.nyfaria.perfectplushieapi.client.renderer.WanderingPlushieTraderRenderer;
 import com.nyfaria.perfectplushieapi.init.PlushieBlockEntityInit;
-import com.nyfaria.perfectplushieapi.init.PlushieBlockInit;
 import com.nyfaria.perfectplushieapi.init.PlushieEntityInit;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class PPAClientModEvents {
 
     @SubscribeEvent

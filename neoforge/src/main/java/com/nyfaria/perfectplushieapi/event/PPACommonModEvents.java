@@ -1,13 +1,12 @@
 package com.nyfaria.perfectplushieapi.event;
 
 import com.nyfaria.perfectplushieapi.init.PlushieEntityInit;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class PPACommonModEvents {
-
 
     @SubscribeEvent
     public static void attribs(EntityAttributeCreationEvent e) {

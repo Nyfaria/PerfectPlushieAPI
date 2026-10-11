@@ -1,28 +1,28 @@
 package com.nyfaria.perfectplushieapi.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.*;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class CommonConfig {
-    public static final ForgeConfigSpec CONFIG_SPEC;
+    public static final ModConfigSpec CONFIG_SPEC;
     public static final CommonConfig INSTANCE;
 
     static {
-        Pair<CommonConfig, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(CommonConfig::new);
+        Pair<CommonConfig, ModConfigSpec> pair = new ModConfigSpec.Builder().configure(CommonConfig::new);
         CONFIG_SPEC = pair.getRight();
         INSTANCE = pair.getLeft();
     }
 
-    public final ForgeConfigSpec.IntValue TRADER_DEFAULT_TICK_DELAY;
-    public final ForgeConfigSpec.IntValue TRADER_DEFAULT_SPAWN_DELAY;
-    public final ForgeConfigSpec.IntValue TRADER_DEFAULT_SPAWN_CHANCE;
-    public final ForgeConfigSpec.IntValue TRADER_MIN_SPAWN_CHANCE;
-    public final ForgeConfigSpec.IntValue TRADER_MAX_SPAWN_CHANCE;
-    public final ForgeConfigSpec.IntValue TRADER_SPAWN_CHANCE_INCREASE;
-    public final ForgeConfigSpec.IntValue TRADER_SPAWN_ONE_IN_X_CHANCE;
-    public final ForgeConfigSpec.IntValue TRADER_NUMBER_OF_SPAWN_ATTEMPTS;
+    public final ModConfigSpec.IntValue TRADER_DEFAULT_TICK_DELAY;
+    public final ModConfigSpec.IntValue TRADER_DEFAULT_SPAWN_DELAY;
+    public final ModConfigSpec.IntValue TRADER_DEFAULT_SPAWN_CHANCE;
+    public final ModConfigSpec.IntValue TRADER_MIN_SPAWN_CHANCE;
+    public final ModConfigSpec.IntValue TRADER_MAX_SPAWN_CHANCE;
+    public final ModConfigSpec.IntValue TRADER_SPAWN_CHANCE_INCREASE;
+    public final ModConfigSpec.IntValue TRADER_SPAWN_ONE_IN_X_CHANCE;
+    public final ModConfigSpec.IntValue TRADER_NUMBER_OF_SPAWN_ATTEMPTS;
 
-    protected CommonConfig(ForgeConfigSpec.Builder builder) {
+    protected CommonConfig(ModConfigSpec.Builder builder) {
         builder.push("Perfect Plushies Common Config");
         builder.push("Wandering Plushie Trader Config");
         this.TRADER_DEFAULT_TICK_DELAY = builder.comment("How long to wait to try and spawn after server starts").defineInRange("trader-default-tick-delay", 1200, 0, 10000);

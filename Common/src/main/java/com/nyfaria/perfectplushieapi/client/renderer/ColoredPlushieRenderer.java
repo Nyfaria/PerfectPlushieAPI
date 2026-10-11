@@ -6,6 +6,7 @@ import com.nyfaria.perfectplushieapi.block.entity.ColoredPlushieBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.DefaultedBlockGeoModel;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
@@ -16,7 +17,7 @@ public class ColoredPlushieRenderer extends GeoBlockRenderer<ColoredPlushieBlock
     }
 
     @Override
-    public void renderRecursively(PoseStack poseStack, ColoredPlushieBlockEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderRecursively(PoseStack poseStack, ColoredPlushieBlockEntity animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int color) {
         if (animatable.colorCount() > 0) {
             int redx = animatable.getRed(0);
             int greenx = animatable.getGreen(0);
@@ -30,9 +31,10 @@ public class ColoredPlushieRenderer extends GeoBlockRenderer<ColoredPlushieBlock
                     }
                 }
             }
-            super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, redx / 255f, greenx / 255f, bluex / 255f, alpha);
+            float alpha = FastColor.ARGB32.alpha(color) / 255f;
+            super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, FastColor.ARGB32.colorFromFloat(alpha, redx / 255f, greenx / 255f, bluex / 255f));
         } else {
-            super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+            super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, color);
         }
     }
 }

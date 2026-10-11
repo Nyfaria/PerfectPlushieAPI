@@ -57,11 +57,11 @@ public class PlushiesLootTableModifier {
     public static ResourceLocation LOOT_TABLE_RESOURCE_LOCATION;
 
     public static void modifyLootTables() {
-        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+        LootTableEvents.MODIFY.register((id, tableBuilder, source) -> {
             // Regular plushies
             for (String village : VILLAGE_VARIANTS) {
-                LOOT_TABLE_RESOURCE_LOCATION = new ResourceLocation("minecraft", "chests/village/" + village);
-                if (LOOT_TABLE_RESOURCE_LOCATION.equals(id)) {
+                LOOT_TABLE_RESOURCE_LOCATION = ResourceLocation.fromNamespaceAndPath("minecraft", "chests/village/" + village);
+                if (LOOT_TABLE_RESOURCE_LOCATION.equals(id.location())) {
                     LootPool.Builder poolBuilder = LootPool.lootPool()
                             .setRolls(BinomialDistributionGenerator.binomial(1, ((PlushieConfig)PlushieConfig.INSTANCE).village_loot_table_chance.get().floatValue()))
                             .add(TagEntry.expandTag(PlushieTags.VILLAGE_PLUSHIES_ITEMS).when(LootItemRandomChanceCondition.randomChance(0.5f)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f))))
@@ -73,8 +73,8 @@ public class PlushiesLootTableModifier {
 
             // Player plushies
             for (String buried_treasure : BURIED_VARIANTS) {
-                LOOT_TABLE_RESOURCE_LOCATION = new ResourceLocation("minecraft", "chests/" + buried_treasure);
-                if (LOOT_TABLE_RESOURCE_LOCATION.equals(id)) {
+                LOOT_TABLE_RESOURCE_LOCATION = ResourceLocation.fromNamespaceAndPath("minecraft", "chests/" + buried_treasure);
+                if (LOOT_TABLE_RESOURCE_LOCATION.equals(id.location())) {
                     LootPool.Builder poolBuilder = LootPool.lootPool()
                             .setRolls(BinomialDistributionGenerator.binomial(1, ((PlushieConfig)PlushieConfig.INSTANCE).buried_treasure_loot_table_chance.get().floatValue()))
                             .add(TagEntry.expandTag(PlushieTags.TREASURE_PLUSHIES_ITEMS).when(LootItemRandomChanceCondition.randomChance(0.5f)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f))))
@@ -85,8 +85,8 @@ public class PlushiesLootTableModifier {
             }
             // Archaeology plushies
             for (String buried_treasure : COMMON_ARCHAEOLOGY_VARIANTS) {
-                LOOT_TABLE_RESOURCE_LOCATION = new ResourceLocation("minecraft", buried_treasure);
-                if (LOOT_TABLE_RESOURCE_LOCATION.equals(id)) {
+                LOOT_TABLE_RESOURCE_LOCATION = ResourceLocation.fromNamespaceAndPath("minecraft", buried_treasure);
+                if (LOOT_TABLE_RESOURCE_LOCATION.equals(id.location())) {
                     LootPool.Builder poolBuilder = LootPool.lootPool()
                             .setRolls(BinomialDistributionGenerator.binomial(1, ((PlushieConfig)PlushieConfig.INSTANCE).archaeology_loot_table_chance.get().floatValue()))
                             .add(TagEntry.expandTag(PlushieTags.ARCHAEOLOGY_PLUSHIES_ITEMS).setWeight(4).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f))))
@@ -96,14 +96,14 @@ public class PlushiesLootTableModifier {
             }
 
         });
-        LootTableEvents.REPLACE.register((resourceManager,lootManager,resourceLocation,table,source) -> {
-            if(Arrays.stream(COMMON_ARCHAEOLOGY_VARIANTS).toList().contains(resourceLocation.getPath())) {
+        LootTableEvents.REPLACE.register((id, table, source) -> {
+            if(Arrays.stream(COMMON_ARCHAEOLOGY_VARIANTS).toList().contains(id.location().getPath())) {
                 LootTable.Builder builder = LootTable.lootTable();
                 LootPool.Builder poolBuilder = LootPool.lootPool();
 
-                Arrays.stream(Arrays.stream(table.pools).findFirst().get().entries).forEach(
+                table.pools.stream().findFirst().get().entries.forEach(
                         entry -> {
-                            poolBuilder.add(LootItem.lootTableItem(((LootItem) entry).item));
+                            poolBuilder.add(LootItem.lootTableItem(((LootItem) entry).item.value()));
                         }
                 );
                 poolBuilder.add(TagEntry.expandTag(PlushieTags.ARCHAEOLOGY_PLUSHIES_ITEMS).setWeight(2));

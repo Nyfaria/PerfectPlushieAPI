@@ -1,22 +1,22 @@
 package com.nyfaria.perfectplushieapi.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class PlushieConfig {
-    public static final ForgeConfigSpec CONFIG_SPEC;
+    public static final ModConfigSpec CONFIG_SPEC;
     public static final PlushieConfig INSTANCE;
     static {
-        Pair<PlushieConfig, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(PlushieConfig::new);
+        Pair<PlushieConfig, ModConfigSpec> pair = new ModConfigSpec.Builder().configure(PlushieConfig::new);
         CONFIG_SPEC = pair.getRight();
         INSTANCE = pair.getLeft();
     }
-    public final ForgeConfigSpec.DoubleValue village_loot_table_chance;
-    public final ForgeConfigSpec.DoubleValue buried_treasure_loot_table_chance;
-    public final ForgeConfigSpec.DoubleValue archaeology_loot_table_chance;
+    public final ModConfigSpec.DoubleValue village_loot_table_chance;
+    public final ModConfigSpec.DoubleValue buried_treasure_loot_table_chance;
+    public final ModConfigSpec.DoubleValue archaeology_loot_table_chance;
 
 
-    private PlushieConfig(ForgeConfigSpec.Builder builder) {
+    private PlushieConfig(ModConfigSpec.Builder builder) {
         builder.push("loot_table_chances");
         village_loot_table_chance = builder
                 .comment("Chance for plushies to appear in village loot tables (default: 0.1)")

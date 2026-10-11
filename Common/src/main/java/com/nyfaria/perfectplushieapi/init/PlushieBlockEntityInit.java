@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 
 public abstract class PlushieBlockEntityInit {
     public static final RegistrationProvider<BlockEntityType<?>> BLOCK_ENTITIES = RegistrationProvider.get(Registries.BLOCK_ENTITY_TYPE, Constants.MODID);
-    public static final RegistryObject<BlockEntityType<PlayerPlushieBlockEntity>> PLAYER_PLUSHIE_BLOCK_ENTITY = BLOCK_ENTITIES.register("player_plushie_block_entity", () -> BlockEntityType.Builder.of(PlayerPlushieBlockEntity::new, PlushieStore.playerBlocks.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
-    public static final RegistryObject<BlockEntityType<GeoPlushieBlockEntity>> GEO_PLUSHIE_BLOCK_ENTITY = BLOCK_ENTITIES.register("dumbo_blob_plushie", () -> BlockEntityType.Builder.of(GeoPlushieBlockEntity::new, PlushieStore.geoPlushieBlocks.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
+    public static final RegistryObject<BlockEntityType<?>, BlockEntityType<PlayerPlushieBlockEntity>> PLAYER_PLUSHIE_BLOCK_ENTITY = BLOCK_ENTITIES.register("player_plushie_block_entity", () -> BlockEntityType.Builder.of(PlayerPlushieBlockEntity::new, PlushieStore.playerBlocks.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
+    public static final RegistryObject<BlockEntityType<?>,BlockEntityType<GeoPlushieBlockEntity>> GEO_PLUSHIE_BLOCK_ENTITY = BLOCK_ENTITIES.register("dumbo_blob_plushie", () -> BlockEntityType.Builder.of(GeoPlushieBlockEntity::new, PlushieStore.geoPlushieBlocks.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
     public static void loadClass() {}
 }

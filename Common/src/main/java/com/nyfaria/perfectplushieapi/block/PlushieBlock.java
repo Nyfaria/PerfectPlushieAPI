@@ -1,5 +1,6 @@
 package com.nyfaria.perfectplushieapi.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -25,6 +26,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.*;
 
 public class PlushieBlock extends HorizontalDirectionalBlock implements Equipable {
+    public static final MapCodec<PlushieBlock> CODEC = simpleCodec(properties -> new PlushieBlock());
+
     private static final VoxelShape OUTLINE_SHAPE = Block.box(3, 0, 3, 13, 10, 13);
 
     // Constructor with pre-defined block settings
@@ -35,6 +38,11 @@ public class PlushieBlock extends HorizontalDirectionalBlock implements Equipabl
                 .strength(0.5f, 0.5f)
                 .lightLevel((state) -> 3)
         );
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     // Defines hitbox for all plushies

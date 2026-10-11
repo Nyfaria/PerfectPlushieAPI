@@ -11,9 +11,9 @@ import java.util.Map;
 
 public class PlayerPlushieBlockItemModel extends GeoModel<PlayerGeoPlushieBlockItem> {
 
-    public final ResourceLocation modDevDoll = new ResourceLocation(Constants.MODID, "geo/player_plushie.geo.json");
+    public final ResourceLocation modDevDoll = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "geo/player_plushie.geo.json");
     public final Map<ResourceLocation, ResourceLocation> textures = new HashMap<>();
-    public final ResourceLocation noAnimations = new ResourceLocation(Constants.MODID, "animations/none.animation.json");
+    public final ResourceLocation noAnimations = ResourceLocation.fromNamespaceAndPath(Constants.MODID, "animations/none.animation.json");
 
 
     @Override
@@ -23,7 +23,7 @@ public class PlayerPlushieBlockItemModel extends GeoModel<PlayerGeoPlushieBlockI
 
     @Override
     public ResourceLocation getTextureResource(PlayerGeoPlushieBlockItem animatable) {
-        return textures.computeIfAbsent(BuiltInRegistries.ITEM.getKey(animatable), blockRL -> new ResourceLocation(blockRL.getNamespace(), "textures/block/" + blockRL.getPath() + ".png"));
+        return textures.computeIfAbsent(BuiltInRegistries.ITEM.getKey(animatable), blockRL -> ResourceLocation.fromNamespaceAndPath(blockRL.getNamespace(), "textures/block/" + blockRL.getPath() + ".png"));
     }
 
     @Override

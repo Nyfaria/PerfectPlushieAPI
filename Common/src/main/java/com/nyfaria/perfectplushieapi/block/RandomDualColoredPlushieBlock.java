@@ -3,6 +3,7 @@ package com.nyfaria.perfectplushieapi.block;
 import com.nyfaria.perfectplushieapi.block.entity.ColoredPlushieBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -31,8 +32,8 @@ public abstract class RandomDualColoredPlushieBlock extends ColoredPlushieBlock 
         if (level.getBlockEntity(pos) instanceof ColoredPlushieBlockEntity) {
             Vec3i color1;
             Vec3i color2;
-            if (stack.hasTag()) {
-                CompoundTag colors = stack.getTag().getCompound("colors");
+            if (stack.has(DataComponents.CUSTOM_DATA)) {
+                CompoundTag colors = stack.get(DataComponents.CUSTOM_DATA).copyTag().getCompound("colors");
                 CompoundTag color1Tag = colors.getCompound("0");
                 color1 = new Vec3i(color1Tag.getInt("red"), color1Tag.getInt("green"), color1Tag.getInt("blue"));
                 CompoundTag color2Tag = colors.getCompound("1");

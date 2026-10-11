@@ -19,7 +19,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.CustomSpawner;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.ServerLevelData;
 
@@ -133,7 +132,7 @@ public class WanderingPlushieTraderSpawner implements CustomSpawner {
             int k = pPos.getZ() + this.random.nextInt(pMaxDistance * 2) - pMaxDistance;
             int l = pLevel.getHeight(Heightmap.Types.WORLD_SURFACE, j, k);
             BlockPos blockpos1 = new BlockPos(j, l, k);
-            if (NaturalSpawner.isSpawnPositionOk(SpawnPlacements.Type.ON_GROUND, pLevel, blockpos1, EntityType.WANDERING_TRADER)) {
+            if (SpawnPlacements.isSpawnPositionOk(EntityType.WANDERING_TRADER, pLevel, blockpos1)) {
                 blockpos = blockpos1;
                 break;
             }

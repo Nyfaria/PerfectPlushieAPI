@@ -1,7 +1,6 @@
 package com.nyfaria.perfectplushieapi.block.entity;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
+import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -11,8 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.*;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.animatable.instance.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
@@ -31,9 +29,9 @@ public abstract class ColoredPlushieBlockEntity extends BlockEntity implements G
     }
 
     @Override
-    public void load(CompoundTag tag) {
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         loadData(tag);
-        super.load(tag);
     }
 
     public List<Vec3i> getColors() {
@@ -57,9 +55,9 @@ public abstract class ColoredPlushieBlockEntity extends BlockEntity implements G
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
-        saveData(pTag);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        saveData(tag);
     }
 
     private void saveData(CompoundTag pTag) {
@@ -84,7 +82,7 @@ public abstract class ColoredPlushieBlockEntity extends BlockEntity implements G
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
         CompoundTag tag = new CompoundTag();
         saveData(tag);
         return tag;
@@ -102,10 +100,7 @@ public abstract class ColoredPlushieBlockEntity extends BlockEntity implements G
         this.setChanged();
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
 
-    }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
